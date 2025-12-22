@@ -1,22 +1,15 @@
-"use client";
 import Image from "next/image";
-import Galaxy from "@/components/Galaxy";
+import Starfield from "react-starfield";
 
 export default function Home() {
   return (
     <div className="relative h-screen w-screen overflow-hidden justify-center items-center bg-black font-sans">
-      <div style={{ width: '100%', height: '100%', position: 'absolute', opacity: '70%' }}>
-        <Galaxy 
-          mouseRepulsion={false}
-          mouseInteraction={false}
-          density={0.5}
-          glowIntensity={0.2}
-          saturation={0.9}
-          hueShift={100}
-          twinkleIntensity={0.1}
-          starSpeed={0.1}
-          speed={0.2}
-          rotationSpeed={0.01}
+      <div style={{ width: '100%', height: '100%', position: 'absolute', opacity: '100%' }}>
+        <Starfield 
+          starCount={1000}
+          starColor={[255,255,255]}
+          speedFactor={0.005}
+          backgroundColor="black"
         />
       </div>
 
