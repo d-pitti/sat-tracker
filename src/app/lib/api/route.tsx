@@ -1,7 +1,7 @@
+import './envConfig';
 import { NextResponse } from "next/server";
 
 const params = new URLSearchParams({ identity: process.env.URL_USER!, password: process.env.URL_PASS!});
-
 
 export async function getCredentials() { 
     const cookieStore = await fetch( 'https://www.space-track.org/ajaxauth/login', {
