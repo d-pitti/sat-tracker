@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Starfield from "react-starfield";
+import { dbConnect } from "./lib/db/db";
+
+export async function dbinit(){
+  await dbConnect();
+};
 
 export default function Home() {
+  dbinit();
   return (
     <div className="relative h-screen w-screen overflow-hidden justify-center items-center bg-black font-sans">
       <div style={{ width: '100%', height: '100%', position: 'absolute', opacity: '100%' }}>
@@ -13,7 +19,7 @@ export default function Home() {
         />
       </div>
 
-      <div className={"absolute z-5 w-screen animate-satellite"}>
+      <div className={"absolute z-5 w-screen h-screen animate-satellite"}>
             <Image
                 className="invert opacity-15"
                 src="/satellite.svg"

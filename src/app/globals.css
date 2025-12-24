@@ -53,10 +53,10 @@
 
 @keyframes orbit {
   from {
-    transform: translate(-25%, 75%) scale(1);
+    transform: translate(-25%, 25%) scale(1);
   }
   to {
-    transform: translate(100%,75%) scale(1);
+    transform: translate(100%,25%) scale(1);
   }
 }
 
