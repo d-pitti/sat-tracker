@@ -16,15 +16,15 @@ export async function dbConnect(){
             database: process.env.DB_NAME!,
         });
 
-        const createTable = 'CREATE TABLE IF NOT EXISTS satellites ( TLE_LINE0 VARCHAR(255) PRIMARY KEY, TLE_LINE1 VARCHAR(255), TLE_LINE2 VARCHAR(255) );';
+        const createTable = 'CREATE TABLE IF NOT EXISTS satellites ( OBJECT_NAME VARCHAR(255) PRIMARY KEY, TLE_LINE_ONE VARCHAR(255), TLE_LINE_TWO VARCHAR(255) );';
 
         await connection.execute(createTable);
-        //Execute a query to retrieve data from the database, store data results in array
-        const values = await getJson();
-
-        const mappedValues = values.map(item => [item.TLE_LINE0, item.TLE_LINE1, item.TLE_LINE2]); 
         
-        const sql = "INSERT INTO satellites (TLE_LINE0, TLE_LINE1, TLE_LINE2) VALUES ? ON DUPLICATE KEY UPDATE TLE_LINE0=VALUES(TLE_LINE0)";
+        //get api data, map to sql values then execute a query to insert data to the database, store data results in array
+        const values = await getJson();
+        const mappedValues = values.map(item => [item.OBJECT_NAME, item.TLE_LINE1, item.TLE_LINE2]); 
+        console.log(values);
+        const sql = "INSERT INTO satellites (OBJECT_NAME, TLE_LINE_ONE, TLE_LINE_TWO) VALUES ? ON DUPLICATE KEY UPDATE OBJECT_NAME=VALUES(OBJECT_NAME)";
         await connection.query(sql,[mappedValues]);
         
         await connection.end();
