@@ -17,7 +17,7 @@ export async function getJson(){
     const cookieSession = await getCredentials();    
     console.log(cookieSession);
 
-    const results = await fetch('https://www.space-track.org/basicspacedata/query/class/gp/orderby/TLE_LINE0%20asc/predicates/OBJECT_NAME,TLE_LINE1,TLE_LINE2/limit/10000/emptyresult/show', { 
+    const results = await fetch('https://www.space-track.org/basicspacedata/query/class/gp/orderby/TLE_LINE0/predicates/OBJECT_NAME,TLE_LINE1,TLE_LINE2/limit/10000/emptyresult/show', { 
        headers: {
         'Cookie': cookieSession.headers.getSetCookie()[0], 
        }
