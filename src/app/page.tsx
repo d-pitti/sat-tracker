@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Starfield from "react-starfield";
-import { AccordionComponent } from "../components/accordion";
+import { AccordionClient } from "../components/accordionClient";
 import { dbInitalize } from "./lib/seed/seed";
 
 
@@ -37,8 +37,8 @@ export default async function Home() {
         </ul>
       </div> */}
 
-      <div className="relative flex z-10 w-2/3 h-3/4 overflow-y-scroll rounded-xl items-center justify-center justify-self-center m-40 p-5 bg-zinc-300">
-        <AccordionComponent />
+      <div className="relative flex z-10 w-2/3 h-3/4 overflow-y-scroll items-center justify-center justify-self-center m-40 p-5 bg-zinc-300">
+        <AccordionClient />
       </div>
     </div>
   );

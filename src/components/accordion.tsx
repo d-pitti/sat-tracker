@@ -1,29 +1,48 @@
+
 import { Accordion, AccordionContent, AccordionPanel, AccordionTitle, Button } from "flowbite-react";
-import { HiOutlineTrash } from "react-icons/hi";
+//import { HiOutlineTrash } from "react-icons/hi";
 import pool from "../app/lib/db/db";
+//import { DeleteAccordionItem } from "../app/lib/db/dbFetch";
 import { AccordionItem } from "../app/lib/api/types";
+//import { revalidatePath } from "next/cache";
+import DeleteButton from "./deleteButton";
 
-export async function GetAccordionData(){
-  const connection = await pool.getConnection();
-  try{
-    const [rows] = await connection.query<AccordionItem[]>('SELECT OBJECT_NAME, TLE_LINE_ONE, TLE_LINE_TWO FROM satellites ORDER BY OBJECT_NAME ASC;');
-    pool.releaseConnection(connection);
-    return rows;
 
-  }catch (error) {
-    console.error('Database fetch error:', error);
-    return []; // Return an empty array on error
-  }
-};
+// export async function GetAccordionData(){
+//   const connection = await pool.getConnection();
+//   try{
+//     const [rows] = await connection.query<AccordionItem[]>('SELECT OBJECT_NAME, TLE_LINE_ONE, TLE_LINE_TWO FROM satellites ORDER BY OBJECT_NAME ASC;');
+//     pool.releaseConnection(connection);
+//     return rows;
 
-export async function AccordionComponent(){
-    let items: AccordionItem[] = [];
+//   }catch (error) {
+//     console.error('Database fetch error:', error);
+//     return []; // Return an empty array on error
+//   }
+// };
 
-    try{
-        items = await GetAccordionData();
-    }catch (error){
-        console.error('Error fetching accordion data:', error);
-    }
+// export async function DeleteAccordionItem(objectName: string){
+//     'use server';
+//     const connection = await pool.getConnection();
+
+//     try{
+//         await connection.query('DELETE FROM satellites WHERE OBJECT_NAME = ?;', [objectName]);
+//         pool.releaseConnection(connection);
+
+//     }catch (error) {
+//         console.error('Database fetch error:', error);
+//         return []; // Return an empty array on error
+//     }
+// };
+
+export async function AccordionComponent({items}: {items: AccordionItem[]}) {
+    // let items: AccordionItem[] = [];
+
+    // try{
+    //     items = await GetAccordionData();
+    // }catch (error){
+    //     console.error('Error fetching accordion data:', error);
+    // }
 
     return (
         <Accordion collapseAll className="w-full h-full bg-grey-500">
@@ -39,10 +58,10 @@ export async function AccordionComponent(){
                                 {item.TLE_LINE_TWO}
                             </li>
                         </ul>
-                        <Button color="red" pill>
+                        <DeleteButton onClick={ DeleteAccordionItem(item.OBJECT_NAME)} />
+                        {/* <Button color="red" pill>
                             Delete <HiOutlineTrash className="ml-2 h-5 w-5" />
-                        </Button>
-                        
+                        </Button>                         */}
                     </AccordionContent>
 
                 </AccordionPanel>
