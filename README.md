@@ -7,7 +7,11 @@ Displays a list of current information for Satellites in orbit and subsets alike
 *Screen shot of Main page:*
 ![sat-tracker main page](https://github.com/d-pitti/sat-tracker/blob/main/public/Screenshot%20sat-tracker.png)
 
+## API WARNING
 
+° Since the data is coming from an external source, an account will need to be set up in order for the app to run. https://www.space-track.org
+­° There are rules for running the api call, *you will lose access and privilages if the rules are not followed!* API's can only be called once every hour for tle's. So please be kind and follow the guidelines.
+° Create an .env for credentials and link with *Config.ts files. 
 
 ## Getting Started
 
