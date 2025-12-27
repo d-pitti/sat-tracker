@@ -1,9 +1,21 @@
 'use client';
 import { useEffect, useState } from "react";
-import { Accordion, AccordionContent, AccordionPanel, AccordionTitle, Button, Alert, Modal, ModalBody, ModalHeader, Label, TextInput } from "flowbite-react";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionPanel,
+    AccordionTitle,
+    Button,
+    Alert,
+    Modal,
+    ModalBody,
+    ModalHeader,
+    TextInput
+} from "flowbite-react";
 import { HiOutlinePencil, HiOutlineTrash, HiPlus } from "react-icons/hi";
 import { AccordionItem, FormData } from "../app/lib/api/types";
 import { AccordionForm } from "./accordionForm";
+
 
 
 
@@ -14,7 +26,7 @@ export function AccordionClient() {
     const [openModal, setOpenModal] = useState(false);
     const [editName, setEditName] = useState('');
     const [editFormData, setEditFormData] = useState<FormData>({ title: '', lineOne: '', lineTwo: '' });
-  
+
 
     /****************************Get Data and Load items*****************************/
     async function fetchData() {
@@ -33,7 +45,7 @@ export function AccordionClient() {
 
     /**************************** Get object name and delete panel *****************************/
     async function deleteItem(objectName: string) {
-
+        setMessage("Item Deleted Successfully!");
         const encodeObject = encodeURIComponent(objectName);
         try {
             const response = await fetch(`/lib/db/${encodeObject}`, { method: 'DELETE' });
@@ -42,7 +54,10 @@ export function AccordionClient() {
                 throw new Error('Network response was not ok');
             }
             setDeleted((currentItem) => currentItem.filter(item => item.OBJECT_NAME !== objectName.toString()));
+            //alert("Item Deleted Successfully!"); 
             fetchData();
+            setTimeout(() => { setMessage(''); }, 3000);
+
         } catch (error) {
             console.error('There was a problem with the delete operation:', error);
         }
@@ -83,9 +98,11 @@ export function AccordionClient() {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            setMessage("Items saved successfully!");
             setEditName('');
             fetchData();
             setEditFormData({ title: '', lineOne: '', lineTwo: '' });
+            setTimeout(() => { setMessage(''); }, 3000);
 
 
         } catch (error) {
@@ -125,6 +142,9 @@ export function AccordionClient() {
     return (
         <div className="flex z-5 flex-col w-full h-full">
             <div className="flex w-full h-fit p-5 backdrop-blur-xl bg-white/14">
+                <div className="z-10 w-1/4 h-fit justify-self-center">
+                    {message && <Alert color="info">{message}</Alert>}
+                </div>
                 <div className="flex w-full justify-end">
                     <Button onClick={() => setOpenModal(true)}>
                         Add New Item <HiPlus className="ml-2 h-5 w-5" />
@@ -139,9 +159,7 @@ export function AccordionClient() {
                     </Modal>
                 </div>
             </div>
-            <div>
-                {message && <Alert color="info">{message}</Alert>}
-            </div>
+
             <div className="flex w-full h-full overflow-y-scroll p-5">
                 <Accordion collapseAll className="w-full h-full bg-grey-500">
                     {items.map((item) => (
