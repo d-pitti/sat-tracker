@@ -1,4 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## SAT-TRACKER
+
+Web app built wit React, Next.JS, Tailwind, and React-Flowbite components. 
+
+Displays a list of current information for Satellites in orbit and subsets alike. Listed info is formatted as TLE (Two Line Element) for each given name. All fields are editable except for object name. 
+
+*Screen shot of Main page:*
+
+![Sat-Tracker Main page](./public/Screenshot sat-tracker.png)
+
 
 ## Getting Started
 
