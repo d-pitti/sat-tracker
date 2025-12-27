@@ -5,7 +5,7 @@ Web app built wit React, Next.JS, Tailwind, and React-Flowbite components.
 Displays a list of current information for Satellites in orbit and subsets alike. Listed info is formatted as TLE (Two Line Element) for each given name. All fields are editable except for object name. 
 
 *Screen shot of Main page:*
-C:\Users\dp-au\OneDrive\Desktop\GitHub Projects\sat-tracker\public\Screenshot sat-tracker.png
+![Sat-tracker main page]C:\Users\dp-au\OneDrive\Desktop\GitHub Projects\sat-tracker\public\Screenshot sat-tracker.png
 
 
 
