@@ -1,6 +1,11 @@
 import './dbConfig';
 import mysql from 'mysql2/promise';
 
+/***********************************************/
+/* AFTER EVERY POOL CONNECTION A RELEASE MUST  */ 
+/* FOLLOW IN ORDER TO CLOSE OUT DB CONNECTION  */
+/***********************************************/
+
 const pool = mysql.createPool ({
             host: process.env.DB_HOST!,
             port: Number.parseInt(process.env.DB_PORT!),

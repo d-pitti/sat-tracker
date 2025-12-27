@@ -1,3 +1,9 @@
+/*****************************************************************/
+/*  This form takes new data from add panel modal and sends      */
+/*  back new FormData to accordion and then to database.         */
+/*                                                               */
+/*****************************************************************/
+
 'use client'
 import { useState } from "react";
 import type { FormData } from "../app/lib/api/types";

@@ -4,7 +4,6 @@ import { Accordion, AccordionContent, AccordionPanel, AccordionTitle, Button, Al
 import { HiOutlinePencil, HiOutlineTrash, HiPlus } from "react-icons/hi";
 import { AccordionItem, FormData } from "../app/lib/api/types";
 import { AccordionForm } from "./accordionForm";
-import { title } from "process";
 
 
 
@@ -15,10 +14,9 @@ export function AccordionClient() {
     const [openModal, setOpenModal] = useState(false);
     const [editName, setEditName] = useState('');
     const [editFormData, setEditFormData] = useState<FormData>({ title: '', lineOne: '', lineTwo: '' });
-    const [editLineOne, setEditLineOne] = useState('');
-    const [editLineTwo, setEditLineTwo] = useState('');
+  
 
-
+    /****************************Get Data and Load items*****************************/
     async function fetchData() {
         try {
             const response = await fetch('/lib/db', { method: 'GET' });
@@ -33,9 +31,12 @@ export function AccordionClient() {
         fetchData();
     }, []);
 
+    /**************************** Get object name and delete panel *****************************/
     async function deleteItem(objectName: string) {
+
+        const encodeObject = encodeURIComponent(objectName);
         try {
-            const response = await fetch(`/lib/db/${objectName}`, { method: 'DELETE' });
+            const response = await fetch(`/lib/db/${encodeObject}`, { method: 'DELETE' });
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -47,6 +48,7 @@ export function AccordionClient() {
         }
     };
 
+    /**************************** Helpers for setting data on button clicks *****************************/
     const addItem = (newItem: AccordionItem) => {
         setItems((prevItems) => [...prevItems, newItem]);
     }
@@ -56,16 +58,12 @@ export function AccordionClient() {
         setEditFormData({ title: item.OBJECT_NAME, lineOne: item.TLE_LINE_ONE, lineTwo: item.TLE_LINE_TWO });
     }
 
-    const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setEditFormData((prevData) => ({ ...prevData, [name]: value, }));
-    }
-
     const handleCancel = () => {
         setEditFormData({ title: '', lineOne: '', lineTwo: '' });
         setEditName('');
     }
 
+    /**************************** Get updated data and submit to db *****************************/
     const saveItems = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -96,7 +94,7 @@ export function AccordionClient() {
     }
 
 
-
+    /****************************Get new panel Data and reload items*****************************/
     const handleSubmit = async (data: FormData): Promise<void> => {
         try {
             const response = await fetch('/lib/db', {
