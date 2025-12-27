@@ -54,7 +54,6 @@ export function AccordionClient() {
                 throw new Error('Network response was not ok');
             }
             setDeleted((currentItem) => currentItem.filter(item => item.OBJECT_NAME !== objectName.toString()));
-            //alert("Item Deleted Successfully!"); 
             fetchData();
             setTimeout(() => { setMessage(''); }, 3000);
 
