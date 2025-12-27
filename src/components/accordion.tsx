@@ -1,9 +1,10 @@
 'use client';
 import { useEffect, useState } from "react";
 import { Accordion, AccordionContent, AccordionPanel, AccordionTitle, Button, Alert, Modal, ModalBody, ModalHeader, Label, TextInput } from "flowbite-react";
-import { HiOutlineTrash, HiPlus } from "react-icons/hi";
+import { HiOutlinePencil, HiOutlineTrash, HiPlus } from "react-icons/hi";
 import { AccordionItem, FormData } from "../app/lib/api/types";
 import { AccordionForm } from "./accordionForm";
+import { title } from "process";
 
 
 export function AccordionClient() {
@@ -12,6 +13,11 @@ export function AccordionClient() {
     const [message, setMessage] = useState<string>('');
     const [openModal, setOpenModal] = useState(false);
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [editTitle, setEditTitle] = useState<string>('');
+    const [editLineOne, setEditLineOne] = useState<string>('');
+    const [editLineTwo, setEditLineTwo] = useState<string>('');
+    const [editName, setEditName] = useState(null);
+    const [editFromData, setEditFromData] = useState<FormData>({ title: '', lineOne: '', lineTwo: '' });
 
 
     async function fetchData() {
@@ -46,24 +52,45 @@ export function AccordionClient() {
         setItems((prevItems) => [...prevItems, newItem]);
     }
 
-    const editItems = (newItem: AccordionItem) => {
-        setItems((items) => items.map(item => item.OBJECT_NAME === newItem.OBJECT_NAME ? newItem : item));
-        fetchData();
+    const editItems = (item: AccordionItem) => {
+        setEditName(item.OBJECT_NAME);
+        setEditFromData({ title: item.OBJECT_NAME, lineOne: item.TLE_LINE_ONE, lineTwo: item.TLE_LINE_TWO });
     }
 
-    const saveItems = async (updatedItem: AccordionItem) => {
+    const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setEditFromData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    }
+
+    const handleCancel = () => {
+        setEditFromData({ title: '', lineOne: '', lineTwo: '' });
+        setEditName(null);
+    }
+
+    const saveItems = async (objectName: string) => {
         try {
-            const response = await fetch(`/lib/db/${updatedItem.OBJECT_NAME}`, {
-                method: 'UPDATE',
+            const response = await fetch(`/lib/db/${objectName}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(updatedItem),
-            }); 
+                body: JSON.stringify({
+                    editFromData
+                    // NAME: editTitle,
+                    // TLE_LINE1: editLineOne,
+                    // TLE_LINE2: editLineTwo
+                }),
+            });
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            editItems(updatedItem);
+            fetchData();
+            setEditName(null);
+            setEditFromData({ title: '', lineOne: '', lineTwo: '' });
+
         } catch (error) {
             console.error('There was a problem with the update operation:', error);
         }
@@ -94,6 +121,8 @@ export function AccordionClient() {
         }
     }
 
+
+
     return (
         <div className="flex z-5 flex-col w-full h-full">
             <div className="flex w-full h-fit p-5 backdrop-blur-xl bg-white/14">
@@ -119,22 +148,65 @@ export function AccordionClient() {
                     {items.map((item) => (
                         <AccordionPanel key={item.OBJECT_NAME} className="flex h-full w-full bg-white">
                             <AccordionTitle className="flex items-center bg-white">
-                                {item.OBJECT_NAME}
+                                {editName === item.OBJECT_NAME ? (
+                                    <TextInput
+                                        id={item.OBJECT_NAME}
+                                        name="OBJECT_NAME"
+                                        value={editFromData.title}
+                                        className="w-full"
+                                        onChange={handleFieldChange}
+                                        required
+                                    />
+                                ) : (
+                                    <span>{item.OBJECT_NAME}</span>
+                                )}
                                 {deleted ? null : <Alert color="success">Successfully deleted item!</Alert>}
                             </AccordionTitle>
                             <AccordionContent className="flex w-full h-fit justify-center items-center border-2 border-black">
-                                <ul className="flex-col w-full h-full">
-                                    <li className="justify-center items-center text-black">
-                                        {item.TLE_LINE_ONE}
-                                    </li>
-                                    <li className="justify-center items-center text-black">
-                                        {item.TLE_LINE_TWO}
-                                    </li>
-                                </ul>
-                                <Button className="mt-4" color="blue" pill onClick={() => { editItems(item.OBJECT_NAME) }}>
-                                <Button color="red" pill onClick={() => { deleteItem(item.OBJECT_NAME) }}>
-                                    Delete <HiOutlineTrash className="ml-2 h-5 w-5" />
-                                </Button>
+                                {editName === item.OBJECT_NAME ? (
+                                    <div className="flex flex-col w-full h-full gap-4">
+                                        <TextInput
+                                            name="TLE_LINE_ONE"
+                                            value={editFromData.lineOne}
+                                            onChange={handleFieldChange}
+                                            className="w-full"
+                                            required
+
+                                        />
+                                        <TextInput
+                                            name="TLE_LINE_TWO"
+                                            value={editFromData.lineTwo}
+                                            onChange={handleFieldChange}
+                                            className="w-full"
+                                            required
+
+                                        />
+                                        <div className="flex gap-2">
+                                            <Button onClick={() => saveItems(item.OBJECT_NAME)} color="success" size="sm">Save</Button>
+                                            <Button onClick={() => handleCancel()} color="failure" size="sm">Cancel</Button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-row justify-around items-center w-full h-full gap-4">
+                                        <ul className="flex-col w-full h-full">
+                                            <li className="justify-center items-center text-black">
+                                                {item.TLE_LINE_ONE}
+                                            </li>
+                                            <li className="justify-center items-center text-black">
+                                                {item.TLE_LINE_TWO}
+                                            </li>
+                                        </ul>
+                                        <div className="flex flex-row justify-center items-center gap-4">
+                                            <Button color="blue" pill onClick={() => { editItems(item) }}>
+                                                EDIT <HiOutlinePencil className="ml-2 h-5 w-5" />
+                                            </Button>
+                                            <Button color="red" pill onClick={() => { deleteItem(item.OBJECT_NAME) }}>
+                                                Delete <HiOutlineTrash className="ml-2 h-5 w-5" />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )
+                                }
                             </AccordionContent>
 
                         </AccordionPanel>
