@@ -6,7 +6,7 @@ Displays a list of current information for Satellites in orbit and subsets alike
 
 *Screen shot of Main page:*
 
-![Sat-Tracker Main page](public/Screenshot sat-tracker.png)
+![Sat-Tracker Main page](./public/Screenshot sat-tracker.png)
 
 
 ## Getting Started
