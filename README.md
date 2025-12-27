@@ -9,12 +9,11 @@ Displays a list of current information for Satellites in orbit and subsets alike
 
 ## API WARNING
 
-° Since the data is coming from an external source, an account will need to be set up in order for the app to run. https://www.space-track.org<br/>
+* Since the data is coming from an external source, an account will need to be set up in order for the app to run. https://www.space-track.org<br/>
 
-­° There are rules for running the api call, *you will lose access and privilages if the rules are not followed!* API's can only be called once every hour 
-   </t></t> for tle's. So please be kind and follow the guidelines.<br/>
+­* There are rules for running the api call, *you will lose access and privilages if the rules are not followed!* API's can only be called once every hour for tle's. So please be kind and follow the guidelines.<br/>
 
-° Create an .env for credentials and link with *Config.ts files.<br/> 
+* Create an .env for credentials and link with *Config.ts files.<br/> 
 
 ## Future TO-DO's 
 
