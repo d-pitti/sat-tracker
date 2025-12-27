@@ -44,9 +44,7 @@ export async function PUT(request: NextRequest) {
       const { title, lineOne, lineTwo } = await request.json();
       const TLE_LINE1 = lineOne;
       const TLE_LINE2 = lineTwo;
-      const OBJECT_NAME = title;
-      console.log(title);
-    
+      const OBJECT_NAME = title;    
       await connection.query(
         'UPDATE satellites SET TLE_LINE_ONE = (?), TLE_LINE_TWO = (?) WHERE OBJECT_NAME = (?)',
         [TLE_LINE1, TLE_LINE2, OBJECT_NAME]
