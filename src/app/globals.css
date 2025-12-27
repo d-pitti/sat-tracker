@@ -1,8 +1,7 @@
 @import "tailwindcss";
-@source "../../.flowbite-react/class-list.json";
 @import "flowbite-react/plugin/tailwindcss";
 
-/* Background pulled from React Bits */
+/* Background pulled from React-starfield on github */
 
 @theme inline {
   --color-background: var(--background);
