@@ -7,17 +7,16 @@ import { AccordionForm } from "./accordionForm";
 import { title } from "process";
 
 
+
 export function AccordionClient() {
     const [items, setItems] = useState<AccordionItem[]>([]);
     const [deleted, setDeleted] = useState<AccordionItem[]>([]);
     const [message, setMessage] = useState<string>('');
     const [openModal, setOpenModal] = useState(false);
-    const [isEditing, setIsEditing] = useState<boolean>(false);
-    const [editTitle, setEditTitle] = useState<string>('');
-    const [editLineOne, setEditLineOne] = useState<string>('');
-    const [editLineTwo, setEditLineTwo] = useState<string>('');
-    const [editName, setEditName] = useState(null);
-    const [editFromData, setEditFromData] = useState<FormData>({ title: '', lineOne: '', lineTwo: '' });
+    const [editName, setEditName] = useState('');
+    const [editFormData, setEditFormData] = useState<FormData>({ title: '', lineOne: '', lineTwo: '' });
+    const [editLineOne, setEditLineOne] = useState('');
+    const [editLineTwo, setEditLineTwo] = useState('');
 
 
     async function fetchData() {
@@ -54,47 +53,49 @@ export function AccordionClient() {
 
     const editItems = (item: AccordionItem) => {
         setEditName(item.OBJECT_NAME);
-        setEditFromData({ title: item.OBJECT_NAME, lineOne: item.TLE_LINE_ONE, lineTwo: item.TLE_LINE_TWO });
+        setEditFormData({ title: item.OBJECT_NAME, lineOne: item.TLE_LINE_ONE, lineTwo: item.TLE_LINE_TWO });
     }
 
-    const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setEditFromData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
+    const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setEditFormData((prevData) => ({ ...prevData, [name]: value, }));
     }
 
     const handleCancel = () => {
-        setEditFromData({ title: '', lineOne: '', lineTwo: '' });
-        setEditName(null);
+        setEditFormData({ title: '', lineOne: '', lineTwo: '' });
+        setEditName('');
     }
 
-    const saveItems = async (objectName: string) => {
+    const saveItems = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         try {
-            const response = await fetch(`/lib/db/${objectName}`, {
+            const response = await fetch(`/lib/db/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    editFromData
-                    // NAME: editTitle,
-                    // TLE_LINE1: editLineOne,
-                    // TLE_LINE2: editLineTwo
+                    title: editFormData.title,
+                    lineOne: editFormData.lineOne,
+                    lineTwo: editFormData.lineTwo
                 }),
+
             });
+            console.log(response);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            setEditName('');
             fetchData();
-            setEditName(null);
-            setEditFromData({ title: '', lineOne: '', lineTwo: '' });
+            setEditFormData({ title: '', lineOne: '', lineTwo: '' });
+
 
         } catch (error) {
             console.error('There was a problem with the update operation:', error);
         }
     }
+
+
 
     const handleSubmit = async (data: FormData): Promise<void> => {
         try {
@@ -128,7 +129,7 @@ export function AccordionClient() {
             <div className="flex w-full h-fit p-5 backdrop-blur-xl bg-white/14">
                 <div className="flex w-full justify-end">
                     <Button onClick={() => setOpenModal(true)}>
-                        Add New Item
+                        Add New Item <HiPlus className="ml-2 h-5 w-5" />
                     </Button>
                     <Modal show={openModal} size="lg" onClose={() => setOpenModal(false)} popup>
                         <ModalHeader />
@@ -148,43 +149,33 @@ export function AccordionClient() {
                     {items.map((item) => (
                         <AccordionPanel key={item.OBJECT_NAME} className="flex h-full w-full bg-white">
                             <AccordionTitle className="flex items-center bg-white">
-                                {editName === item.OBJECT_NAME ? (
-                                    <TextInput
-                                        id={item.OBJECT_NAME}
-                                        name="OBJECT_NAME"
-                                        value={editFromData.title}
-                                        className="w-full"
-                                        onChange={handleFieldChange}
-                                        required
-                                    />
-                                ) : (
-                                    <span>{item.OBJECT_NAME}</span>
-                                )}
+                                {item.OBJECT_NAME}
                                 {deleted ? null : <Alert color="success">Successfully deleted item!</Alert>}
                             </AccordionTitle>
                             <AccordionContent className="flex w-full h-fit justify-center items-center border-2 border-black">
                                 {editName === item.OBJECT_NAME ? (
                                     <div className="flex flex-col w-full h-full gap-4">
-                                        <TextInput
-                                            name="TLE_LINE_ONE"
-                                            value={editFromData.lineOne}
-                                            onChange={handleFieldChange}
-                                            className="w-full"
-                                            required
+                                        <form id="formUpdate" onSubmit={saveItems}>
+                                            <TextInput
+                                                name="TLE_LINE_ONE"
+                                                defaultValue={editFormData.lineOne}
+                                                onChange={(e) => setEditFormData((prevData) => ({ ...prevData, lineOne: e.target.value }))}
+                                                className="w-full"
+                                                required
+                                            />
+                                            <TextInput
+                                                name="TLE_LINE_TWO"
+                                                defaultValue={editFormData.lineTwo}
+                                                onChange={(e) => setEditFormData((prevData) => ({ ...prevData, lineTwo: e.target.value }))}
+                                                className="w-full"
+                                                required
+                                            />
 
-                                        />
-                                        <TextInput
-                                            name="TLE_LINE_TWO"
-                                            value={editFromData.lineTwo}
-                                            onChange={handleFieldChange}
-                                            className="w-full"
-                                            required
-
-                                        />
-                                        <div className="flex gap-2">
-                                            <Button onClick={() => saveItems(item.OBJECT_NAME)} color="success" size="sm">Save</Button>
-                                            <Button onClick={() => handleCancel()} color="failure" size="sm">Cancel</Button>
-                                        </div>
+                                            <div className="flex gap-2">
+                                                <Button type="submit" color="success" size="sm">Save</Button>
+                                                <Button onClick={() => handleCancel()} color="failure" size="sm">Cancel</Button>
+                                            </div>
+                                        </form>
                                     </div>
                                 ) : (
                                     <div className="flex flex-row justify-around items-center w-full h-full gap-4">
