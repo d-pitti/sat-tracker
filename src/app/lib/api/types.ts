@@ -6,9 +6,14 @@ export interface TleData{
     TLE_LINE2: string,
 }
 
-
 export interface AccordionItem extends RowDataPacket{
     NAME: string, 
     LINE1: string, 
     LINE2: string
+}
+
+export interface FormData{
+    title: string,
+    lineOne: string,
+    lineTwo: string
 }
