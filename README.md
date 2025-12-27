@@ -16,6 +16,13 @@ Displays a list of current information for Satellites in orbit and subsets alike
 
 ° Create an .env for credentials and link with *Config.ts files.<br/> 
 
+## Future TO-DO's 
+
+* Implement robust Authentication wihtin the application
+* Implement a mult-tiered user schema database
+* restrict some functionality for general users.
+* set time limit for API call to max times per day
+
 ## Getting Started
 
 First, run the development server:
