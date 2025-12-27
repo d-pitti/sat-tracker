@@ -45,7 +45,7 @@ export function AccordionClient() {
 
     /**************************** Get object name and delete panel *****************************/
     async function deleteItem(objectName: string) {
-        setMessage("Item Deleted Successfully!");
+        setMessage("Item deleted Successfully!");
         const encodeObject = encodeURIComponent(objectName);
         try {
             const response = await fetch(`/lib/db/${encodeObject}`, { method: 'DELETE' });
@@ -128,8 +128,11 @@ export function AccordionClient() {
             if (response.ok) {
                 const newData: AccordionItem = await response.json();
                 addItem(newData);
+                setMessage("Items added successfully!");
                 fetchData();
                 setOpenModal(false);
+                setTimeout(() => { setMessage(''); }, 3000);
+
             }
         } catch (error) {
             console.error('Error submitting form:', error);
