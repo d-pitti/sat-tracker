@@ -29,7 +29,7 @@ Displays a list of current information for Satellites in orbit and subsets alike
 <br />
 First, create a .env.local file in the root of the project with the following variables:
 
-##### *localhost or static ip of local machine
+*<strong>localhost or static ip of local machine</strong>
 DB_HOST=<value> 
 
 ##### Port for your MyQSL DB (Default port is 3306) 
