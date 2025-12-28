@@ -23,10 +23,10 @@ Displays a list of current information for Satellites in orbit and subsets alike
 * set time limit for API call to max times per day
 
 ## Getting Started
-First, create a .env.local file with the following variables:
+First, create a .env.local file in the root of the project with the following variables:
 
-DB_HOST=localhost  
-DB_PORT=3306  
+DB_HOST= localhost or static ip of local machine  
+DB_PORT= 3306 (general port used in MySQL)  
 DB_USER= "Enter your DB user name"  
 DB_PASS= "Enter your DB Password"  
 DB_NAME= "Enter your DB Schema Name"  
