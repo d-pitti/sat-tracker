@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   /* config options here */
   allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev'],
   
+  output: "standalone",
+
   webpack: (config, { isServer }) => {
     // If the build is for the client side (not server)
     if (!isServer) {
