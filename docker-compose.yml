@@ -1,6 +1,6 @@
 services:
   db:
-    image: mysql:8.0
+    image: mysql:latest
     container_name: mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: DP.mysqlreact.1218
@@ -21,9 +21,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL:  db://root:DP.mysqlreact.1218@mysql:3306/space-tracker
+      DATABASE_URL:  db://root:DP.mysqlreact.1218@db:3306/space-tracker
       DB_HOST: localhost
-      DB_PORT: 3306
+      DB_PORT: "3306"
       DB_USER: root
       DB_PASS: DP.mysqlreact.1218
       DB_NAME: space_tracker
@@ -42,4 +42,3 @@ volumes:
 
 networks:
   app-networks:
-    driver: bridge
