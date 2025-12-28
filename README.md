@@ -28,13 +28,20 @@ Displays a list of current information for Satellites in orbit and subsets alike
 
 First, create a .env.local file in the root of the project with the following variables:
 
-DB_HOST= localhost or static ip of local machine  
-DB_PORT= 3306 (general port used in MySQL)  
-DB_USER= "Enter your DB user name"  
-DB_PASS= "Enter your DB Password"  
-DB_NAME= "Enter your DB Schema Name"  
+# localhost or static ip of local machine
+DB_HOST=<value> 
 
-*Variables for the URL API*  
+# Port for your MyQSL DB (Default port is 3306) 
+DB_PORT=<value>
+
+# Your DB username and password
+DB_USER=<value>  
+DB_PASS=<value> 
+
+# Your DB SCHEMA name, not table name
+DB_NAME=<value> 
+
+# Your username and password for Space-Track.org
 URL_USER= "Your Username for the space-track site"  
 URL_PASS= "Your password for the space track site"  
 
