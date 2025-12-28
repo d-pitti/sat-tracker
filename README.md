@@ -1,6 +1,6 @@
 ## SAT-TRACKER
 
-Web app built wit React, Next.JS, Tailwind, React-Flowbite components, using MySQL for the database. 
+Web app built wit React, Next.JS, Tailwind, React-Flowbite components, using MySQL 8.0.44 for the database. 
 
 Displays a list of current information for Satellites in orbit and subsets alike. Listed info is formatted as TLE (Two Line Element) for each given name. All fields are editable except for object name. 
 
