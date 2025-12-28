@@ -25,15 +25,15 @@ Displays a list of current information for Satellites in orbit and subsets alike
 ## Getting Started
 First, create a .env.local file with the following variables:
 
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER= "Enter your DB user name"
-DB_PASS= "Enter your DB Password"
-DB_NAME= "Enter your DB Schema Name"
+DB_HOST=localhost  
+DB_PORT=3306  
+DB_USER= "Enter your DB user name"  
+DB_PASS= "Enter your DB Password"  
+DB_NAME= "Enter your DB Schema Name"  
 
-*Variables for the URL API*
-URL_USER= "Your Username for the space-track site"
-URL_PASS= "Your password for the space track site"
+*Variables for the URL API*  
+URL_USER= "Your Username for the space-track site"  
+URL_PASS= "Your password for the space track site"  
 
 Second, run the development server:
 
