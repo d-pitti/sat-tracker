@@ -23,8 +23,19 @@ Displays a list of current information for Satellites in orbit and subsets alike
 * set time limit for API call to max times per day
 
 ## Getting Started
+First, create a .env.local file with the following variables:
 
-First, run the development server:
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER= "Enter your DB user name"
+DB_PASS= "Enter your DB Password"
+DB_NAME= "Enter your DB Schema Name"
+
+*Variables for the URL API*
+URL_USER= "Your Username for the space-track site"
+URL_PASS= "Your password for the space track site"
+
+Second, run the development server:
 
 ```bash
 npm run dev
