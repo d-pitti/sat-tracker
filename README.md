@@ -25,8 +25,8 @@ Displays a list of current information for Satellites in orbit and subsets alike
 ## Getting Started
 
 #### ***A local instance of MySQL will need to be installed in order to run the app*** 
-<\n>
-<\n>
+</n>
+</n>
 First, create a .env.local file in the root of the project with the following variables:
 
 ##### localhost or static ip of local machine
