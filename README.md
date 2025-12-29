@@ -10,7 +10,7 @@ To run this app you will need:
 ##### 1. Install dependencies    
     npm i
 
-##### 2. Create an '.env.local' using the template:
+##### 2. Create an <mark>.env.local</mark> using the template:
     URL_USER=<Your Space-Track API username>
     URL_PASS=<Your Space-Track API password>
     DB_USER=<MySQL Database username>  
