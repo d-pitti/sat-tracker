@@ -7,7 +7,7 @@ To run this app you will need:
 
 #### Steps
 
-#### 1. Install dependencies  
+#### 1. Install dependencies
         npm i 
 
   ##### Port for your MyQSL DB (Default port is 3306) 
