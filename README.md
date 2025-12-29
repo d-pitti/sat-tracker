@@ -10,7 +10,7 @@ To run this app you will need:
 #### 1. Install dependencies
     npm i 
 
-  ##### Port for your MyQSL DB (Default port is 3306) 
+#### 2. Create an    .env.local using the tmeplate:
     DB_PORT=<value>
 
   ##### Your DB username and password
@@ -21,8 +21,7 @@ To run this app you will need:
     DB_NAME=<value> 
 
   ##### Your username and password for Space-Track.org
-    URL_USER= <value> 
-    URL_PASS= <value>
+   
 
 Second, run the development server:
 
