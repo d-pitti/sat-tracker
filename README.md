@@ -8,7 +8,7 @@ To run this app you will need:
 #### Steps
 
 1. Install dependencies  
-'''bash
+'''bash  
 npm i
 ''' 
 
