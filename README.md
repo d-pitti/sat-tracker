@@ -7,10 +7,8 @@ To run this app you will need:
 
 #### Steps
 
-1. Install dependencies  
-'''bash  
-npm i
-''' 
+##### 1. Install dependencies    
+    npm i
 
 3. Create an '.env.local' using the template:
    
