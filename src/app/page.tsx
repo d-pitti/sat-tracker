@@ -2,11 +2,9 @@ import Image from "next/image";
 import Starfield from "react-starfield";
 import { AccordionClient } from "../components/accordion";
 import { dbInitalize } from "./lib/seed/seed";
-import intialConnection from "./lib/db/initializedb";
 
 
 export default async function Home() {
-  await intialConnection();
   await dbInitalize();
 
   return (
