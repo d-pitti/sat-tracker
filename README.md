@@ -10,7 +10,7 @@ To run this app you will need:
 #### 1. Install dependencies
     npm i 
 
-#### 2. Create an    .env.local using the tmeplate:
+#### 2. Create an '.env.local' using the tmeplate:
     DB_PORT=<value>
 
   ##### Your DB username and password
