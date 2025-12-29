@@ -10,18 +10,13 @@ To run this app you will need:
 ##### 1. Install dependencies    
     npm i
 
-3. Create an '.env.local' using the template:
-   
-
-  ##### Your DB username and password
-    DB_USER=<value>  
-    DB_PASS=<value> 
-    DB_PORT=<value>
-
-  ##### Your DB SCHEMA name, not table name
-    DB_NAME=<value> 
-
-  ##### Your username and password for Space-Track.org
+##### 2. Create an '.env.local' using the template:
+    URL_USER=<Your Space-Track API username>
+    URL_PASS=<Your Space-Track API password>
+    DB_USER=<MySQL Database username>  
+    DB_PASS=<MySQL Database password> 
+    DB_PORT=<MySQL Database port>
+    DB_NAME=<MySQL Database schema> 
    
 
 Second, run the development server:
