@@ -7,15 +7,18 @@ To run this app you will need:
 
 #### Steps
 
-#### 1. Install dependencies
-    npm i 
+1. Install dependencies
+'''bash
+npm i
+''' 
 
-#### 2. Create an <mark>.env.local</mark> using the tmeplate:
-    DB_PORT=<value>
+3. Create an '.env.local' using the template:
+   
 
   ##### Your DB username and password
     DB_USER=<value>  
     DB_PASS=<value> 
+    DB_PORT=<value>
 
   ##### Your DB SCHEMA name, not table name
     DB_NAME=<value> 
