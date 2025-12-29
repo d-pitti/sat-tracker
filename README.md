@@ -19,7 +19,7 @@ To run this app you will need:
     DB_NAME=<MySQL Database schema> 
    
 
-Second, run the development server:
+##### 3. Start the applicaiton  
 
 ```bash
 npm run dev
